@@ -1,0 +1,139 @@
+Image Matching Challenge 2025 — 3D Scene Clustering & Reconstruction
+
+Final Rank: 140 / 950
+Private Score Achieved (Unsubmitted Version): 38 — would have placed in the Top-50, but this version did not make it into final submissions.
+Repository Code: Contains the implementation that achieved my best officially submitted rank.
+
+🧩 Overview
+
+This repository contains my solution for the Image Matching Challenge 2025, a large-scale computer vision competition focused on grouping images into coherent 3D scenes and reconstructing accurate camera poses.
+
+The task advances Structure-from-Motion (SfM) and image clustering at scale, addressing a fundamental challenge: how to determine which images belong together when online image collections are noisy, unstructured, and visually ambiguous.
+
+Real-world datasets often contain unrelated or visually confusing images, making classical SfM pipelines brittle. This competition pushes toward robust, scalable systems capable of handling:
+
+Similar-looking but distinct scenes
+
+Outlier images
+
+Missing GPS/metadata
+
+Challenging lighting, perspective, and photometric variations
+
+My approach focuses on robust image grouping, pose estimation, and hybrid registration heuristics, balancing precision and recall as measured by the competition’s harmonic scoring metric.
+
+🚀 Key Results
+
+Official Score: From the submitted reconstruction & clustering pipeline
+
+Rank: 140 / 950 participants
+
+Private Model (unsubmitted): Achieved 38 combined score, which would have placed Top-50, but was not submitted before deadline
+
+Repository: Contains the version corresponding to the best submitted ranking, ensuring reproducibility
+
+🏆 Competition Summary
+
+Start: April 1, 2025
+End: June 3, 2025
+
+This is the third installment of the Image Matching Challenge, extending previous years by requiring participants to solve two tasks simultaneously:
+
+Image Partitioning
+Group images into clusters that represent scenes, or mark them as outliers.
+
+Scene Reconstruction
+For each scene, estimate camera poses (rotation matrix + translation vector).
+
+This dual problem resembles solving a jigsaw puzzle where pieces from other puzzles are mixed in, and some pieces belong to no puzzle at all.
+
+📂 Task Description
+
+Participants receive datasets consisting of:
+
+One or more scenes, visually similar but distinct
+
+A mix of inlier and outlier images
+
+Training data includes ground truth poses
+
+Test data provides only images
+
+Your system must output:
+
+A cluster ID (scene label) for each image
+
+A camera pose (rotation matrix + translation vector) when applicable
+
+nan pose values for outliers or unregistered-but-clustered images
+
+All predictions go into a single submission.csv.
+
+🧮 Evaluation
+
+The evaluation integrates:
+
+1. mAA (mean Average Accuracy)
+
+Measures how many images of the true scene are correctly placed in the predicted cluster (recall).
+
+2. Clustering Score
+
+Measures cluster purity (precision).
+
+Final Score
+
+Harmonic mean of mAA and clustering score — analogous to F1-score.
+
+Scores are computed via:
+
+Greedy scene–cluster assignment
+
+Aggregation across datasets
+
+Averaging across all test datasets
+
+📄 Submission Format
+
+Each CSV row includes:
+
+dataset,scene,image,rotation_matrix,translation_vector
+
+
+scene accepts any label (cluster1, cluster2, …)
+
+outliers label marks images excluded from reconstruction
+
+Rotation matrices are flattened row-major (r11;r12;...;r33)
+
+Unregistered images use nan values for poses
+
+Example row:
+
+dataset1,cluster1,image1.png,0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9,0.1;0.2;0.3
+
+🛠 Code Requirements
+
+This is a Kaggle Code Competition:
+
+CPU or GPU Notebook runtime ≤ 9 hours
+
+No internet access
+
+External public datasets and pre-trained models allowed
+
+Output file must be named submission.csv
+
+Must be executed inside Kaggle Notebooks
+
+🧠 Method Summary (High-Level)
+
+(Adapt this section depending on what's in your repo)
+
+Hybrid image grouping using geometric verification, feature-space clustering, and robust heuristics
+
+Pose estimation using a pipeline of feature extraction, pairwise matching, track generation, and global registration
+
+Outlier handling using statistical thresholds + self-consistency checks
+
+Safety fallback for unregistered-but-high-confidence cluster assignments (pose = nan)
