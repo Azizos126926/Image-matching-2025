@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "imc2025"
+version = "0.1.0"
+description = "Modular Image Matching Challenge 2025 pipeline based on DINOv2 + ALIKED + LightGlue + pycolmap."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  {name = "Project Refactor"},
+]
+dependencies = [
+  "numpy>=1.26",
+  "pandas>=2.1",
+  "h5py>=3.10",
+  "opencv-python>=4.9",
+  "Pillow>=10.0",
+  "PyYAML>=6.0",
+  "tqdm>=4.66",
+  "torch>=2.1",
+  "transformers>=4.39",
+  "kornia>=0.7",
+  "pycolmap>=0.6",
+  "typer>=0.12",
+  "rich>=13.7",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "black>=24.0",
+  "ruff>=0.5",
+]
+
+[project.scripts]
+imc2025 = "imc2025.cli:app"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["B008"]
