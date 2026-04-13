@@ -1,7 +1,7 @@
 # Image Matching Challenge 2025 — Modular Project
 > This is a one of the most prestigious computer vision competition happening annually.
 > A clean, production-style refactor of the original Kaggle notebook into an organized ML project.
-> ** 🥈 Silver Medal solutionon Kaggle**  
+## ** 🥈 Silver Medal solutionon Kaggle**  
 > I managed to deliver a solution that would rank amon top 50 (silver Kaggle medal) but my official solution that uploaded was ranked top 141.
 ## Highlights
 
